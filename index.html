@@ -178,15 +178,34 @@
   .faq details{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:13px 15px;margin-bottom:8px}
   .faq summary{cursor:pointer;font-weight:700;font-size:15px}
   .faq p{margin-top:8px;font-size:13.5px;color:var(--muted);line-height:1.5}
-  .res .sum{text-align:center;font-size:15px;color:#d7e2d2;line-height:1.5;margin:-4px 0 12px}
-  .res .sum b{color:var(--lime);font-size:18px}
-  .res-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .res-row::-webkit-scrollbar{display:none}
-  .res figure{flex:0 0 86%;max-width:360px;scroll-snap-align:center;margin:0;background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:10px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-  .res img{width:100%;height:auto;display:block;border-radius:12px}
-  .res figcaption{margin-top:10px;font-size:13.5px;color:#d7e2d2;line-height:1.5;text-align:center}
-  .res figcaption b{color:var(--lime)}
-  .res .hint{text-align:center;font-size:12px;color:var(--muted);margin-top:6px}
+  .dia{background:var(--card);border:1px solid var(--stroke);border-radius:18px;padding:14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .dia-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .dia-h .lbl{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--lime)}
+  .dia-h .fecha{font-size:14px;color:#d7e2d2;font-weight:600}
+  .dia-k{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .dia-k div{background:rgba(0,0,0,.28);border-radius:12px;padding:10px 6px;text-align:center;font-size:11.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  .dia-k b{display:block;font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:36px;line-height:1;margin-bottom:3px;letter-spacing:.02em}
+  .dia-k .w{color:#2ee6a0}.dia-k .l{color:#ff4d6d}.dia-k .e{color:#f5c442}
+  .dia .bar{height:8px;border-radius:8px;background:rgba(255,77,109,.35);margin-top:12px;overflow:hidden}
+  .dia .bar i{display:block;height:100%;background:linear-gradient(90deg,#2ee6a0,#a6ff2b);border-radius:8px}
+  .tabs{display:flex;gap:8px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:1 0 auto;font:inherit;font-size:13px;font-weight:700;color:#d7e2d2;background:rgba(0,0,0,.3);border:1px solid var(--stroke);border-radius:12px;padding:9px 12px;cursor:pointer;white-space:nowrap}
+  .tabs button span{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-top:2px}
+  .tabs button[aria-selected="true"]{background:rgba(166,255,43,.14);border-color:var(--lime);color:#fff}
+  .tabs button[aria-selected="true"] span{color:var(--lime)}
+  .dia figure{margin:12px 0 0}
+  .dia img{width:100%;height:auto;display:block;border-radius:12px}
+  .dia figcaption{margin-top:8px;font-size:13px;color:var(--muted);text-align:center}
+  .res-btn{display:block;width:100%;margin-top:12px;font:inherit;font-weight:700;font-size:15px;color:#fff;background:var(--card);border:1px solid var(--lime);border-radius:14px;padding:13px;cursor:pointer}
+  .res-btn[aria-expanded="true"]{background:rgba(166,255,43,.12)}
+  #res-arch details{margin-top:10px;background:var(--card);border:1px solid var(--stroke);border-radius:14px}
+  #res-arch summary{cursor:pointer;padding:13px 15px;font-weight:700;font-size:14.5px;display:flex;justify-content:space-between;gap:8px}
+  #res-arch summary em{font-style:normal;color:var(--lime);white-space:nowrap}
+  #res-arch details .dia{border:0;background:transparent;padding:0 12px 12px;backdrop-filter:none;-webkit-backdrop-filter:none}
+  #res-arch .vacio{margin-top:10px;text-align:center;font-size:13px;color:var(--muted)}
+  .res-tot{margin-top:12px;text-align:center;font-size:13.5px;color:#d7e2d2;line-height:1.5}
+  .res-tot b{color:var(--lime)}
   .res .note{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5;text-align:center;background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:10px 12px}
   @media (max-width:380px){.cards{grid-template-columns:1fr}}
   @media (max-width:380px){h1{font-size:38px}.avatar{width:150px;height:150px}.stat{padding:8px 10px}}
@@ -275,18 +294,10 @@
 
   <section class="sec res" id="resultados">
     <h2>Resultados <span class="g">reales</span></h2>
-    <p class="sum">Jueves 5 de noviembre · 2 sesiones<br><b>12 ganadas · 3 perdidas</b></p>
-    <div class="res-row">
-      <figure>
-        <img src="resultados/2026-11-05-sesion-2.png" alt="Segunda sesión del jueves 5 de noviembre, operativa de 1 minuto en IDX: 7 ganadas y 2 perdidas, 78 % de efectividad" width="425" height="726" loading="lazy" decoding="async">
-        <figcaption>Sesión 2 (noche) · <b>7 ganadas · 2 perdidas</b></figcaption>
-      </figure>
-      <figure>
-        <img src="resultados/2026-11-05.png" alt="Primera sesión del jueves 5 de noviembre, operativa de 1 minuto en IDX: 5 ganadas y 1 perdida, 83 % de efectividad" width="417" height="574" loading="lazy" decoding="async">
-        <figcaption>Sesión 1 (mañana) · <b>5 ganadas · 1 perdida</b></figcaption>
-      </figure>
-    </div>
-    <p class="hint">Desliza para ver más sesiones →</p>
+    <div id="res-hoy"></div>
+    <button type="button" class="res-btn" id="res-btn" aria-expanded="false" aria-controls="res-arch" hidden>📅 Ver resultados anteriores</button>
+    <div id="res-arch" hidden></div>
+    <p class="res-tot" id="res-tot"></p>
     <p class="note">Las pérdidas también se muestran. Hay días buenos y días malos, y un resultado pasado no garantiza los siguientes. Opera solo con dinero que puedas permitirte perder.</p>
   </section>
 
@@ -404,6 +415,44 @@ document.getElementById('y').textContent=new Date().getFullYear();
   addEventListener('resize',resize);resize();requestAnimationFrame(draw);
 })();
 
+</script>
+<script src="resultados/datos.js"></script>
+<script>
+(function(){
+  var D=(window.RESULTADOS||[]).slice().sort(function(a,b){return a.fecha<b.fecha?-1:1});
+  if(!D.length){document.getElementById('resultados').hidden=true;return}
+  var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  function fmt(f){var p=f.split('-'),d=new Date(+p[0],p[1]-1,+p[2]);var t=DIAS[d.getDay()]+' '+(+p[2])+' de '+MES[p[1]-1];return t[0].toUpperCase()+t.slice(1)}
+  function tot(ss){var g=0,p=0;ss.forEach(function(s){g+=s.g;p+=s.p});return{g:g,p:p,e:g+p?Math.round(100*g/(g+p)):0}}
+  function hoy(){try{return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Caracas'}).format(new Date())}catch(e){return''}}
+  function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+  function dia(d,lbl){
+    var t=tot(d.sesiones),box=el('div','dia');
+    box.appendChild(el('div','dia-h','<span class="lbl">'+lbl+'</span><span class="fecha">'+fmt(d.fecha)+' · '+d.sesiones.length+(d.sesiones.length>1?' sesiones':' sesión')+'</span>'));
+    box.appendChild(el('div','dia-k','<div><b class="w">'+t.g+'</b>ganadas</div><div><b class="l">'+t.p+'</b>perdidas</div><div><b class="e">'+t.e+'%</b>efectividad</div>'));
+    box.appendChild(el('div','bar','<i style="width:'+t.e+'%"></i>'));
+    var tabs=el('div','tabs'),fig=el('figure'),img=el('img'),cap=el('figcaption');
+    tabs.setAttribute('role','tablist');img.loading='lazy';img.decoding='async';fig.appendChild(img);fig.appendChild(cap);
+    var bs=d.sesiones.map(function(s,i){
+      var e=s.g+s.p?Math.round(100*s.g/(s.g+s.p)):0,b=el('button',null,s.nombre+'<span>'+s.g+' – '+s.p+' · '+e+'%</span>');
+      b.type='button';b.setAttribute('role','tab');b.onclick=function(){pick(i)};tabs.appendChild(b);return b});
+    function pick(i){var s=d.sesiones[i];bs.forEach(function(b,j){b.setAttribute('aria-selected',j===i)});
+      img.src=s.img;img.width=s.w;img.height=s.h;img.alt=fmt(d.fecha)+', '+s.nombre+': '+s.g+' ganadas y '+s.p+' perdidas';
+      cap.textContent=s.nombre+' · '+s.g+' ganadas · '+s.p+(s.p===1?' perdida':' perdidas')}
+    if(d.sesiones.length>1)box.appendChild(tabs);
+    box.appendChild(fig);pick(d.sesiones.length-1);return box}
+  var ult=D[D.length-1],ant=D.slice(0,-1).reverse();
+  document.getElementById('res-hoy').appendChild(dia(ult,ult.fecha===hoy()?'RESULTADOS DE HOY':'ÚLTIMA JORNADA'));
+  var btn=document.getElementById('res-btn'),arch=document.getElementById('res-arch');
+  btn.hidden=false;
+  if(!ant.length)arch.appendChild(el('p','vacio','Aquí se irán guardando los resultados de cada día.'));
+  ant.forEach(function(d){var t=tot(d.sesiones),det=el('details');
+    det.appendChild(el('summary',null,'<span>'+fmt(d.fecha)+'</span><em>'+t.g+' – '+t.p+' · '+t.e+'%</em>'));
+    det.appendChild(dia(d,'RESULTADOS DEL DÍA'));arch.appendChild(det)});
+  btn.onclick=function(){var o=arch.hidden;arch.hidden=!o;btn.setAttribute('aria-expanded',o);btn.textContent=o?'📅 Ocultar resultados anteriores':'📅 Ver resultados anteriores'};
+  var all=[];D.forEach(function(d){all=all.concat(d.sesiones)});var T=tot(all);
+  document.getElementById('res-tot').innerHTML='Total publicado ('+D.length+(D.length>1?' días':' día')+'): <b>'+T.g+' ganadas · '+T.p+' perdidas · '+T.e+'% de efectividad</b>';
+})();
 </script>
 </body>
 </html>
