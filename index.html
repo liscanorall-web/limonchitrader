@@ -197,6 +197,9 @@
   .dia figure{margin:12px 0 0}
   .dia img{width:100%;height:auto;display:block;border-radius:12px}
   .dia figcaption{margin-top:8px;font-size:13px;color:var(--muted);text-align:center}
+  .res-vacio p{margin:14px 0 4px;text-align:center;font-size:15px;line-height:1.5;color:#d7e2d2}
+  .res-vacio .ult{display:block;width:100%;margin-top:12px;font:inherit;font-size:13.5px;color:#d7e2d2;background:rgba(0,0,0,.3);border:1px solid var(--stroke);border-radius:12px;padding:10px;cursor:pointer}
+  .res-vacio .ult b{color:var(--lime)}
   .res-btn{display:block;width:100%;margin-top:12px;font:inherit;font-weight:700;font-size:15px;color:#fff;background:var(--card);border:1px solid var(--lime);border-radius:14px;padding:13px;cursor:pointer}
   .res-btn[aria-expanded="true"]{background:rgba(166,255,43,.12)}
   #res-arch details{margin-top:10px;background:var(--card);border:1px solid var(--stroke);border-radius:14px}
@@ -441,9 +444,12 @@ document.getElementById('y').textContent=new Date().getFullYear();
       cap.textContent=s.nombre+' · '+s.g+' ganadas · '+s.p+(s.p===1?' perdida':' perdidas')}
     if(d.sesiones.length>1)box.appendChild(tabs);
     box.appendChild(fig);pick(d.sesiones.length-1);return box}
-  var ult=D[D.length-1],ant=D.slice(0,-1).reverse();
-  document.getElementById('res-hoy').appendChild(dia(ult,ult.fecha===hoy()?'RESULTADOS DE HOY':'ÚLTIMA JORNADA'));
+  var H=hoy(),ult=D[D.length-1],esHoy=!H||ult.fecha===H,ant=(esHoy?D.slice(0,-1):D.slice()).reverse();
   var btn=document.getElementById('res-btn'),arch=document.getElementById('res-arch');
+  if(esHoy)document.getElementById('res-hoy').appendChild(dia(ult,'RESULTADOS DE HOY'));
+  else{var t0=tot(ult.sesiones),v=el('div','dia res-vacio','<div class="dia-h"><span class="lbl">RESULTADOS DE HOY</span><span class="fecha">'+fmt(H)+'</span></div><p>Todavía no hay sesiones publicadas hoy.<br>Vuelve después del live 🔴</p><button type="button" class="ult">Último día: '+fmt(ult.fecha)+' · <b>'+t0.g+' – '+t0.p+' · '+t0.e+'%</b></button>');
+    v.querySelector('.ult').onclick=function(){if(arch.hidden)btn.click();var d=arch.querySelector('details');if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}};
+    document.getElementById('res-hoy').appendChild(v)}
   btn.hidden=false;
   if(!ant.length)arch.appendChild(el('p','vacio','Aquí se irán guardando los resultados de cada día.'));
   ant.forEach(function(d){var t=tot(d.sesiones),det=el('details');
