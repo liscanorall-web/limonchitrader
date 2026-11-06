@@ -259,6 +259,45 @@
   .res .note{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5;text-align:center;background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:10px 12px}
   @media (max-width:380px){.cards{grid-template-columns:1fr}}
   @media (max-width:380px){h1{font-size:38px}.avatar{width:150px;height:150px}.stat{padding:8px 10px}}
+
+  /* ===== VERDE MÁS SERENO: mismo verde de la marca, menos brillo ===== */
+  #chart{opacity:.4}
+  .glow-l{opacity:.1}
+  .bull{filter:drop-shadow(0 0 30px rgba(166,255,43,.15))}
+  .avatar .halo{opacity:.45}
+  .avatar .ring{filter:drop-shadow(0 0 9px rgba(166,255,43,.3))}
+  .avatar .live{box-shadow:0 0 9px rgba(166,255,43,.35)}
+  h1 .g{filter:drop-shadow(0 0 6px rgba(166,255,43,.22))}
+  .badge{filter:drop-shadow(0 0 4px rgba(166,255,43,.4))}
+  .btn.hero{background:linear-gradient(110deg,#a6ff2b,#95ec26);box-shadow:0 0 0 1px rgba(166,255,43,.4),0 10px 28px -14px rgba(166,255,43,.55);animation:up .6s .55s backwards,pulse 3s 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 1px rgba(166,255,43,.4),0 10px 28px -14px rgba(166,255,43,.55)}50%{box-shadow:0 0 0 3px rgba(166,255,43,.16),0 12px 32px -12px rgba(166,255,43,.7)}}
+  .cta2{background:linear-gradient(110deg,#a6ff2b,#95ec26);box-shadow:0 10px 28px -14px rgba(166,255,43,.55)}
+
+  /* ===== TODOS LOS BOTONES SE ENCIENDEN COMO EL DEL VIP ===== */
+  /* El botón que tiene el mouse se pone verde; el del VIP se apaga mientras tanto */
+  .links .btn:not(.hero):hover,.links .btn:not(.hero):focus-visible{
+    background:linear-gradient(110deg,#a6ff2b,#95ec26);border-color:transparent;color:#061006;
+    box-shadow:0 0 0 1px rgba(166,255,43,.45),0 12px 30px -12px rgba(166,255,43,.65)}
+  .links .btn:not(.hero):hover .txt strong,.links .btn:not(.hero):focus-visible .txt strong{color:#061006}
+  .links .btn:not(.hero):hover .txt small,.links .btn:not(.hero):focus-visible .txt small{color:#1e4a0a}
+  .links .btn:not(.hero):hover .ico,.links .btn:not(.hero):focus-visible .ico{background:#061006;border-color:transparent;color:var(--lime);box-shadow:none}
+  .links .btn:not(.hero):hover .arrow,.links .btn:not(.hero):focus-visible .arrow{color:#061006}
+  .links .btn:not(.hero)::before{background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%)}
+  .links:has(.btn:not(.hero):hover) .btn.hero,.links:has(.btn:not(.hero):focus-visible) .btn.hero{
+    background:var(--card);color:var(--text);box-shadow:0 0 0 1px var(--stroke);animation:none}
+  .links:has(.btn:not(.hero):hover) .btn.hero .txt small,.links:has(.btn:not(.hero):focus-visible) .btn.hero .txt small{color:var(--muted)}
+  .links:has(.btn:not(.hero):hover) .btn.hero .arrow,.links:has(.btn:not(.hero):focus-visible) .btn.hero .arrow{color:var(--muted)}
+  .links:has(.btn:not(.hero):hover) .btn.hero .ico,.links:has(.btn:not(.hero):focus-visible) .btn.hero .ico{background:linear-gradient(145deg,rgba(166,255,43,.22),rgba(166,255,43,.05));border:1px solid rgba(166,255,43,.35)}
+  .links:has(.btn:not(.hero):hover) .btn.hero::before{animation:none}
+
+  /* "clic, clic, clic, clic" al pararse encima */
+  .links .btn:hover{animation:tap 1.6s ease-out 1 both!important}
+  @keyframes tap{
+    0%,100%{transform:translateY(-4px) scale(1.03)}
+    6%{transform:translateY(-1px) scale(.975)}12%{transform:translateY(-4px) scale(1.03)}
+    31%{transform:translateY(-4px) scale(1.03)}37%{transform:translateY(-1px) scale(.975)}43%{transform:translateY(-4px) scale(1.03)}
+    56%{transform:translateY(-4px) scale(1.03)}62%{transform:translateY(-1px) scale(.975)}68%{transform:translateY(-4px) scale(1.03)}
+    81%{transform:translateY(-4px) scale(1.03)}87%{transform:translateY(-1px) scale(.975)}93%{transform:translateY(-4px) scale(1.03)}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.btn{opacity:1}}
 </style>
 </head>
@@ -422,6 +461,30 @@
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
 document.getElementById('flogo').src=document.querySelector('.avatar img').src;
+
+// Sonido "clic" suave al pararse en un botón (4 clics, igual que la animación).
+// Los navegadores solo dejan sonar después del primer toque o clic del visitante en la página.
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  let ac=null,on=false,timers=[];
+  const unlock=()=>{try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();on=true}catch(e){}};
+  ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,unlock,{once:true,passive:true}));
+  function tick(){
+    if(!on||!ac)return;
+    const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();
+    o.type='square';o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(700,t+.03);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.05,t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+.05);
+    o.connect(g).connect(ac.destination);o.start(t);o.stop(t+.06);
+  }
+  document.querySelectorAll('.links .btn').forEach(b=>{
+    b.addEventListener('pointerenter',e=>{
+      if(e.pointerType==='touch')return;
+      timers.forEach(clearTimeout);timers=[0,400,800,1200].map(ms=>setTimeout(tick,ms+90));
+    });
+    b.addEventListener('pointerleave',()=>{timers.forEach(clearTimeout);timers=[]});
+  });
+})();
+
 
 // Ticker
 (function(){
