@@ -290,14 +290,12 @@
   .links:has(.btn:not(.hero):hover) .btn.hero .ico,.links:has(.btn:not(.hero):focus-visible) .btn.hero .ico{background:linear-gradient(145deg,rgba(166,255,43,.22),rgba(166,255,43,.05));border:1px solid rgba(166,255,43,.35)}
   .links:has(.btn:not(.hero):hover) .btn.hero::before{animation:none}
 
-  /* "clic, clic, clic, clic" al pararse encima */
-  .links .btn:hover{animation:tap 1.6s ease-out 1 both!important}
+  /* Un solo "clic" al pararse encima, junto con el sonido metálico */
+  .links .btn:hover{animation:tap .45s ease-out 1 both!important}
   @keyframes tap{
     0%,100%{transform:translateY(-4px) scale(1.03)}
-    6%{transform:translateY(-1px) scale(.975)}12%{transform:translateY(-4px) scale(1.03)}
-    31%{transform:translateY(-4px) scale(1.03)}37%{transform:translateY(-1px) scale(.975)}43%{transform:translateY(-4px) scale(1.03)}
-    56%{transform:translateY(-4px) scale(1.03)}62%{transform:translateY(-1px) scale(.975)}68%{transform:translateY(-4px) scale(1.03)}
-    81%{transform:translateY(-4px) scale(1.03)}87%{transform:translateY(-1px) scale(.975)}93%{transform:translateY(-4px) scale(1.03)}}
+    25%{transform:translateY(-1px) scale(.975)}
+    55%{transform:translateY(-4px) scale(1.03)}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.btn{opacity:1}}
 </style>
 </head>
@@ -462,26 +460,33 @@
 document.getElementById('y').textContent=new Date().getFullYear();
 document.getElementById('flogo').src=document.querySelector('.avatar img').src;
 
-// Sonido "clic" suave al pararse en un botón (4 clics, igual que la animación).
+// Sonido metálico ("tin") una sola vez al pararse en un botón, como un golpecito en una pieza de metal.
 // Los navegadores solo dejan sonar después del primer toque o clic del visitante en la página.
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  let ac=null,on=false,timers=[];
+  let ac=null,on=false;
   const unlock=()=>{try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume();on=true}catch(e){}};
   ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,unlock,{once:true,passive:true}));
-  function tick(){
+  function tin(){
     if(!on||!ac)return;
-    const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();
-    o.type='square';o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(700,t+.03);
-    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.05,t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+.05);
-    o.connect(g).connect(ac.destination);o.start(t);o.stop(t+.06);
+    const t=ac.currentTime,out=ac.createGain();
+    out.gain.value=.11;out.connect(ac.destination);
+    // Parciales inarmónicos de una barra de metal: eso es lo que lo hace sonar a metal y no a "bip".
+    [[1,1,.42],[2.76,.5,.26],[5.4,.28,.16],[8.93,.14,.09]].forEach(([r,a,d])=>{
+      const o=ac.createOscillator(),g=ac.createGain();
+      o.type='sine';o.frequency.value=1250*r;
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(a,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+      o.connect(g).connect(out);o.start(t);o.stop(t+d+.02);
+    });
+    // Golpe inicial muy corto (el "toc" del impacto).
+    const n=ac.createBuffer(1,Math.floor(ac.sampleRate*.012),ac.sampleRate),c=n.getChannelData(0);
+    for(let i=0;i<c.length;i++)c[i]=(Math.random()*2-1)*(1-i/c.length);
+    const src=ac.createBufferSource(),hp=ac.createBiquadFilter(),ng=ac.createGain();
+    src.buffer=n;hp.type='highpass';hp.frequency.value=3000;ng.gain.value=.35;
+    src.connect(hp).connect(ng).connect(out);src.start(t);
   }
   document.querySelectorAll('.links .btn').forEach(b=>{
-    b.addEventListener('pointerenter',e=>{
-      if(e.pointerType==='touch')return;
-      timers.forEach(clearTimeout);timers=[0,400,800,1200].map(ms=>setTimeout(tick,ms+90));
-    });
-    b.addEventListener('pointerleave',()=>{timers.forEach(clearTimeout);timers=[]});
+    b.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')tin()});
   });
 })();
 
