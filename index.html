@@ -154,9 +154,56 @@
   .ticker span em{font-style:normal;color:var(--lime)}
   .ticker span.dn em{color:var(--red)}
   @keyframes scroll{to{transform:translateX(-50%)}}
-  .risk{margin-top:22px;font-size:11.5px;color:#6f7b6f;text-align:center;line-height:1.5;max-width:360px}
-  footer{margin-top:14px;font-size:12px;color:#5d685d;letter-spacing:.06em}
-  footer b{color:var(--lime);font-weight:600}
+  .top,.wide{width:100%;display:flex;flex-direction:column;align-items:center}
+  .more{display:none}
+  .foot{width:100%;margin-top:26px;padding-top:22px;border-top:1px solid rgba(166,255,43,.12)}
+  .foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 16px}
+  .foot-brand{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+  .foot-brand img{width:52px;height:52px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(166,255,43,.5)}
+  .foot-brand b{display:block;font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:24px;letter-spacing:.06em;color:var(--lime)}
+  .foot-brand span{display:block;font-size:13px;color:var(--muted);line-height:1.4}
+  .foot-col h3{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d7e2d2;margin-bottom:10px}
+  .foot-col a{display:block;font-size:13.5px;color:var(--muted);text-decoration:none;padding:4px 0;transition:color .2s}
+  .foot-col a:hover,.foot-col a:focus-visible{color:var(--lime)}
+  .foot-col p{font-size:12.5px;color:#6f7b6f;line-height:1.45;margin-top:6px}
+  .risk{margin-top:22px;font-size:11.5px;color:#6f7b6f;line-height:1.55}
+  .copy{margin-top:12px;padding-bottom:6px;font-size:12px;color:#5d685d;letter-spacing:.06em}
+  .copy b{color:var(--lime);font-weight:600}
+
+  /* ===== COMPUTADORA: usar todo el ancho ===== */
+  @media (min-width:1024px){
+    main{max-width:1180px;padding:28px 32px 40px}
+    .top{min-height:calc(100vh - 28px);justify-content:center;max-width:660px;margin:0 auto;padding-bottom:20px}
+    .avatar{width:148px;height:148px;margin-bottom:18px}
+    .bio{max-width:520px}
+    .stats{margin:18px 0 22px}
+    .links{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .links .btn.hero{grid-column:1/-1}
+    .links .btn{animation-delay:.5s!important}
+    .more{display:flex;align-items:center;gap:8px;margin-top:22px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+    .more span{display:inline-block;color:var(--lime);font-size:18px;animation:bob 1.6s ease-in-out infinite}
+    .more:hover{color:var(--lime)}
+    .wide{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto auto 1fr auto;gap:28px;align-items:start}
+    .beast{opacity:.78}
+    .wide .sec{margin-top:0}
+    .s-vip{grid-column:1/-1}
+    .s-vip .cards{grid-template-columns:repeat(4,1fr);gap:14px}
+    .s-vip .card{padding:18px}
+    .s-res{grid-column:1/8;grid-row:2/4}
+    .s-pasos{grid-column:8/-1;grid-row:2}
+    .s-trust{grid-column:8/-1;grid-row:3}
+    .s-faq{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;align-items:start}
+    .s-faq h2{grid-column:1/-1}
+    .s-faq details{margin-bottom:0}
+    .s-res .dia figure{max-width:440px;margin-left:auto;margin-right:auto}
+    .wide .sec h2{font-size:34px}
+    .ticker{width:100vw;margin:44px calc(50% - 50vw) 0}
+    .foot{margin-top:34px;padding-top:30px}
+    .foot-grid{grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px}
+    .foot-brand{grid-column:auto;align-items:flex-start}
+    .risk{max-width:820px}
+  }
+  @keyframes bob{50%{transform:translateY(5px)}}
 
 
   /* ===== SECCIONES DEL EMBUDO ===== */
@@ -221,6 +268,7 @@
 <div class="glow-l"></div><div class="glow-r"></div><div class="vignette"></div>
 
 <main>
+<div class="top">
   <div class="avatar">
     <div class="halo"></div>
     <div class="ring"></div>
@@ -283,9 +331,13 @@
       <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
     </a>
   </nav>
+  <a class="more" href="#resultados">Mira los resultados y cómo entrar <span>↓</span></a>
+</div>
+
+<div class="wide">
 
 
-  <section class="sec">
+  <section class="sec s-vip">
     <h2>¿Qué hay dentro del <span class="g">VIP</span>?</h2>
     <div class="cards">
       <div class="card"><b>🔴 Lives operando en vivo</b><span>Ves cómo analizo cada vela y por qué entro o espero, también cuando pierdo.</span></div>
@@ -295,7 +347,7 @@
     </div>
   </section>
 
-  <section class="sec res" id="resultados">
+  <section class="sec res s-res" id="resultados">
     <h2>Resultados <span class="g">reales</span></h2>
     <div id="res-hoy"></div>
     <button type="button" class="res-btn" id="res-btn" aria-expanded="false" aria-controls="res-arch" hidden>📅 Ver resultados anteriores</button>
@@ -304,7 +356,7 @@
     <p class="note">Las pérdidas también se muestran. Hay días buenos y días malos, y un resultado pasado no garantiza los siguientes. Opera solo con dinero que puedas permitirte perder.</p>
   </section>
 
-  <section class="sec">
+  <section class="sec s-pasos" id="pasos">
     <h2>Cómo entrar en <span class="g">3 pasos</span></h2>
     <ol class="steps">
       <li><i>1</i><div><b>Regístrate</b><span>En Stockity con mi enlace (te lo da mi asistente en Telegram).</span></div></li>
@@ -314,7 +366,7 @@
     <a class="cta2" href="https://t.me/LimonchiAsistente_bot?start=web" target="_blank" rel="noopener">Empezar con mi asistente →</a>
   </section>
 
-  <section class="sec trust">
+  <section class="sec trust s-trust">
     <h2>Transparencia <span class="g">total</span></h2>
     <ul>
       <li>✅ El VIP <b>no cuesta nada</b>.</li>
@@ -325,7 +377,7 @@
     </ul>
   </section>
 
-  <section class="sec faq">
+  <section class="sec faq s-faq">
     <h2>Preguntas <span class="g">frecuentes</span></h2>
     <details><summary>¿Necesito experiencia?</summary><p>No. Puedes empezar practicando en la cuenta demo hasta sentirte seguro.</p></details>
     <details><summary>¿Los 10 $ son para ti?</summary><p>No. Quedan en tu cuenta de Stockity y son tuyos. Solo te pido la captura para verificar.</p></details>
@@ -333,14 +385,43 @@
     <details><summary>¿Me garantizas ganancias?</summary><p>No. Nadie puede garantizarlas en trading. Opera solo con dinero que puedas permitirte perder.</p></details>
   </section>
 
+</div>
+
   <div class="ticker" aria-hidden="true"><div id="tk"></div></div>
 
-  <p class="risk">⚠️ El trading conlleva riesgo. Opera solo con dinero que puedas permitirte perder. Nada de esto es asesoría financiera.</p>
-  <footer>© <span id="y"></span> <b>LIMONCHI TRADER</b></footer>
+  <footer class="foot">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img id="flogo" alt="" width="52" height="52">
+        <div><b>LIMONCHI TRADER</b><span>Análisis de Crypto IDX en 1 minuto, en vivo y con transparencia.</span></div>
+      </div>
+      <div class="foot-col">
+        <h3>Comunidad</h3>
+        <a href="https://t.me/LimonchiAsistente_bot?start=web" target="_blank" rel="noopener">Entra gratis al VIP</a>
+        <a href="https://t.me/publicolimonchitrader" target="_blank" rel="noopener">Comunidad pública</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#pasos">Cómo entrar</a>
+      </div>
+      <div class="foot-col">
+        <h3>Sígueme</h3>
+        <a href="https://www.tiktok.com/@limonchitrader" target="_blank" rel="noopener">TikTok @limonchitrader</a>
+        <a href="https://www.tiktok.com/@trader.limonchi" target="_blank" rel="noopener">TikTok @trader.limonchi</a>
+        <a href="https://t.me/Limonchitrader" target="_blank" rel="noopener">Telegram @Limonchitrader</a>
+      </div>
+      <div class="foot-col">
+        <h3>Contacto</h3>
+        <a href="https://t.me/Limonchitrader" target="_blank" rel="noopener">Escríbeme por Telegram</a>
+        <p>🔒 Nunca te pido dinero, contraseñas ni códigos.</p>
+      </div>
+    </div>
+    <p class="risk">⚠️ El trading conlleva riesgo, incluida la pérdida de todo el dinero que deposites. Opera solo con dinero que puedas permitirte perder. Nada de esto es asesoría financiera ni promesa de ganancias.</p>
+    <p class="copy">© <span id="y"></span> <b>LIMONCHI TRADER</b> · Todos los derechos reservados</p>
+  </footer>
 </main>
 
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
+document.getElementById('flogo').src=document.querySelector('.avatar img').src;
 
 // Ticker
 (function(){
