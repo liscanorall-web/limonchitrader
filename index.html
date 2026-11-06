@@ -419,9 +419,10 @@ document.getElementById('y').textContent=new Date().getFullYear();
 })();
 
 </script>
-<script src="resultados/datos.js"></script>
 <script>
-(function(){
+// datos.js se pide con un número distinto en cada visita para que nunca se quede en caché
+(function(){var s=document.createElement('script');s.src='resultados/datos.js?v='+Date.now();s.onload=s.onerror=pintarResultados;document.body.appendChild(s)})();
+function pintarResultados(){
   var D=(window.RESULTADOS||[]).slice().sort(function(a,b){return a.fecha<b.fecha?-1:1});
   if(!D.length){document.getElementById('resultados').hidden=true;return}
   var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -458,7 +459,7 @@ document.getElementById('y').textContent=new Date().getFullYear();
   btn.onclick=function(){var o=arch.hidden;arch.hidden=!o;btn.setAttribute('aria-expanded',o);btn.textContent=o?'📅 Ocultar resultados anteriores':'📅 Ver resultados anteriores'};
   var all=[];D.forEach(function(d){all=all.concat(d.sesiones)});var T=tot(all);
   document.getElementById('res-tot').innerHTML='Total publicado ('+D.length+(D.length>1?' días':' día')+'): <b>'+T.g+' ganadas · '+T.p+' perdidas · '+T.e+'% de efectividad</b>';
-})();
+}
 </script>
 </body>
 </html>
