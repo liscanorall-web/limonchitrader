@@ -297,6 +297,36 @@
     25%{transform:translateY(-1px) scale(.975)}
     55%{transform:translateY(-4px) scale(1.03)}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.btn{opacity:1}}
+
+  /* ===== CÓDIGO PROMOCIONAL ===== */
+  .promo{position:relative;border-radius:22px;padding:2px;background:conic-gradient(from var(--a,0deg),#a6ff2b,#ffd54a,#a6ff2b 40%,rgba(166,255,43,.15) 60%,#a6ff2b);animation:up .7s 1s backwards,spin 6s linear infinite}
+  @property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+  @keyframes spin{to{--a:360deg}}
+  .promo-in{position:relative;overflow:hidden;border-radius:20px;padding:22px 18px 18px;text-align:center;background:radial-gradient(120% 90% at 50% 0%,rgba(166,255,43,.16),transparent 60%),linear-gradient(180deg,#0b120a,#050805)}
+  .promo-in::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.07) 50%,transparent 65%);transform:translateX(-100%);animation:shine 4.5s 1.5s ease-in-out infinite;pointer-events:none}
+  @keyframes shine{40%,100%{transform:translateX(100%)}}
+  .promo-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#061006;background:linear-gradient(110deg,#ffe27a,#ffc928);padding:6px 12px;border-radius:999px}
+  .promo-big{font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-size:clamp(54px,16vw,78px);line-height:.9;margin-top:12px;letter-spacing:.02em;background:linear-gradient(180deg,#f4ffe0,var(--lime) 55%,#5fc414);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(166,255,43,.25))}
+  .promo-sub{font-size:15px;font-weight:600;margin-top:4px}
+  .promo-sub b{color:var(--lime)}
+  .promo-code{display:flex;align-items:stretch;gap:8px;margin:16px auto 0;max-width:420px}
+  .promo-code code{flex:1;display:grid;place-items:center;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:clamp(17px,5vw,21px);font-weight:700;letter-spacing:.12em;color:#fff;border:2px dashed rgba(166,255,43,.6);border-radius:14px;padding:12px 8px;background:rgba(166,255,43,.06);user-select:all;word-break:break-all}
+  .promo-copy{flex:none;font:inherit;font-weight:800;font-size:14px;color:#061006;background:linear-gradient(110deg,#a6ff2b,#95ec26);border:0;border-radius:14px;padding:0 18px;cursor:pointer;box-shadow:0 10px 26px -14px rgba(166,255,43,.7);transition:transform .15s}
+  .promo-copy:hover{transform:translateY(-1px)}
+  .promo-copy.ok{background:#fff}
+  .promo-time{display:flex;justify-content:center;gap:8px;margin-top:16px}
+  .promo-time div{min-width:58px;background:rgba(255,255,255,.04);border:1px solid var(--stroke);border-radius:12px;padding:8px 6px}
+  .promo-time strong{display:block;font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-size:26px;line-height:1;color:var(--lime)}
+  .promo-time span{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .promo-end{font-size:13px;color:#d7e2d2;margin-top:10px}
+  .promo-end b{color:#ffd54a}
+  .promo-how{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:10px}
+  .steps .pc{color:var(--lime);font-weight:800}
+  @media (min-width:1024px){
+    .wide{grid-template-rows:auto auto auto 1fr auto}
+    .s-promo{grid-column:3/11;grid-row:2}
+    .s-res{grid-row:3/5}.s-pasos{grid-row:3}.s-trust{grid-row:4}
+  }
 </style>
 </head>
 <body>
@@ -384,6 +414,26 @@
     </div>
   </section>
 
+  <section class="sec s-promo" id="codigo" data-vence="2026-12-07T23:59:59-04:00">
+    <div class="promo"><div class="promo-in">
+      <span class="promo-tag">🎁 Código promocional activo</span>
+      <div class="promo-big">+100%</div>
+      <p class="promo-sub">de bono en tu <b>primera recarga</b></p>
+      <div class="promo-code">
+        <code id="promo-c">LIMONCHITRADER</code>
+        <button type="button" class="promo-copy" id="promo-btn">Copiar</button>
+      </div>
+      <div class="promo-time" id="promo-t" aria-label="Tiempo restante">
+        <div><strong id="pt-d">--</strong><span>Días</span></div>
+        <div><strong id="pt-h">--</strong><span>Horas</span></div>
+        <div><strong id="pt-m">--</strong><span>Min</span></div>
+        <div><strong id="pt-s">--</strong><span>Seg</span></div>
+      </div>
+      <p class="promo-end">⏳ Válido hasta el <b>7 de diciembre de 2026</b></p>
+      <p class="promo-how">Escríbelo en la casilla <b>“Código promocional”</b> al hacer tu primera recarga. El bono está sujeto a las condiciones de la plataforma: revísalas antes de usarlo.</p>
+    </div></div>
+  </section>
+
   <section class="sec res s-res" id="resultados">
     <h2>Resultados <span class="g">reales</span></h2>
     <div id="res-hoy"></div>
@@ -398,7 +448,7 @@
     <ol class="steps">
       <li><i>1</i><div><b>Regístrate</b><span>En Stockity con mi enlace (te lo da mi asistente en Telegram).</span></div></li>
       <li><i>2</i><div><b>Envía tu ID</b><span>Una captura donde se vea el ID de tu cuenta. Yo verifico el registro.</span></div></li>
-      <li><i>3</i><div><b>Recarga en TU cuenta</b><span>Mínimo 10 $ que quedan en tu propia cuenta. Me envías la captura y te paso el enlace del VIP.</span></div></li>
+      <li><i>3</i><div><b>Recarga en TU cuenta</b><span>Mínimo 10 $ que quedan en tu propia cuenta. Usa mi código <span class="pc">LIMONCHITRADER</span> para recibir <b>+100 %</b> de bono. Me envías la captura y te paso el enlace del VIP.</span></div></li>
     </ol>
     <a class="cta2" href="https://t.me/LimonchiAsistente_bot?start=web" target="_blank" rel="noopener">Empezar con mi asistente →</a>
   </section>
@@ -408,7 +458,7 @@
     <ul>
       <li>✅ El VIP <b>no cuesta nada</b>.</li>
       <li>✅ Tu dinero <b>queda en tu cuenta</b>: nunca me lo envías a mí.</li>
-      <li>🔒 Nunca te pido dinero, contraseñas ni códigos. Si alguien te escribe en mi nombre pidiéndote algo de eso, <b>es falso</b>. Mi único Telegram es <b>@Limonchitrader</b>.</li>
+      <li>🔒 Nunca te pido dinero, contraseñas ni códigos de verificación. Si alguien te escribe en mi nombre pidiéndote algo de eso, <b>es falso</b>. Mi único Telegram es <b>@Limonchitrader</b>.</li>
       <li>ℹ️ El enlace de registro es de afiliado: Stockity me da una comisión, a ti no te cuesta nada extra.</li>
       <li>📉 Nadie puede garantizar ganancias. Te enseño a analizar y a cuidar tu riesgo.</li>
     </ul>
@@ -605,6 +655,30 @@ function pintarResultados(){
   var all=[];D.forEach(function(d){all=all.concat(d.sesiones)});var T=tot(all);
   document.getElementById('res-tot').innerHTML='Total publicado ('+D.length+(D.length>1?' días':' día')+'): <b>'+T.g+' ganadas · '+T.p+' perdidas · '+T.e+'% de efectividad</b>';
 }
+</script>
+<script>
+// Código promocional: copiar + cuenta regresiva; se oculta solo al vencer
+(function(){
+  const sec=document.getElementById('codigo');if(!sec)return;
+  const fin=new Date(sec.dataset.vence).getTime();
+  const btn=document.getElementById('promo-btn'),code=document.getElementById('promo-c').textContent.trim();
+  btn.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(code)}catch(e){
+      const t=document.createElement('textarea');t.value=code;document.body.appendChild(t);t.select();try{document.execCommand('copy')}catch(_){}t.remove()}
+    btn.textContent='¡Copiado! ✓';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='Copiar';btn.classList.remove('ok')},2000);
+  });
+  const el=id=>document.getElementById(id),z=n=>String(n).padStart(2,'0');
+  function tick(){
+    let r=fin-Date.now();
+    if(r<=0){sec.hidden=true;document.querySelectorAll('.steps .pc').forEach(x=>{const sp=x.parentNode;sp.innerHTML=sp.innerHTML.replace(/ Usa mi código.*?bono\./,'')});return}
+    r=Math.floor(r/1000);
+    el('pt-d').textContent=z(Math.floor(r/86400));el('pt-h').textContent=z(Math.floor(r%86400/3600));
+    el('pt-m').textContent=z(Math.floor(r%3600/60));el('pt-s').textContent=z(r%60);
+    setTimeout(tick,1000);
+  }
+  tick();
+})();
 </script>
 </body>
 </html>
