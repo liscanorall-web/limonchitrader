@@ -25,5 +25,11 @@ window.RESULTADOS = [
       { nombre: 'Sesión 2 · tarde', img: 'resultados/2026-11-07-sesion-2.png', w: 415, h: 761, g: 7, p: 1 },
       { nombre: 'Sesión 3 · noche', img: 'resultados/2026-11-07-sesion-3.png', w: 428, h: 362, g: 0, p: 2 }
     ]
+  },
+  {
+    fecha: '2026-11-08',
+    sesiones: [
+      { nombre: 'Sesión 1 · mañana', img: 'resultados/2026-11-08-sesion-1.png', w: 432, h: 816, g: 7, p: 2 }
+    ]
   }
 ];
