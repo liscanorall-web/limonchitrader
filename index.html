@@ -329,6 +329,30 @@
     .s-promo{grid-column:3/11;grid-row:2}
     .s-res{grid-row:3/5}.s-pasos{grid-row:3}.s-trust{grid-row:4}
   }
+  /* ===== ANUNCIO DESTACADO (mensaje de la noche) ===== */
+  .anun{position:relative;border-radius:22px;padding:22px 18px 18px;background:radial-gradient(120% 80% at 50% 0%,rgba(166,255,43,.13),transparent 60%),var(--card);border:1px solid var(--lime);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 20px 60px -34px rgba(166,255,43,.55)}
+  .anun-tag{display:block;width:max-content;margin:0 auto;font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);border:1px solid var(--stroke);background:rgba(166,255,43,.07);padding:5px 12px;border-radius:999px}
+  .anun h2{margin:10px 0 6px}
+  .anun-lead{text-align:center;font-size:16px;font-weight:600}
+  .anun-lead b{color:var(--lime)}
+  .anun p{font-size:14.5px;line-height:1.6;color:#d7e2d2}
+  .anun p + p{margin-top:10px}
+  .anun-body{margin-top:14px}
+  .anun ul{list-style:none;display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0}
+  .anun li{font-size:14px;line-height:1.45;background:rgba(255,255,255,.035);border:1px solid var(--stroke);border-radius:12px;padding:10px 12px}
+  .anun .vip-list li{border-color:rgba(166,255,43,.32)}
+  .anun-cta{margin-top:16px;text-align:center}
+  .anun-cta p{color:var(--text);font-weight:600}
+  .anun-tg{display:inline-flex;align-items:center;gap:10px;margin-top:12px;padding:13px 22px;border-radius:14px;font-weight:800;font-size:15px;color:#061006;text-decoration:none;background:linear-gradient(110deg,#a6ff2b,#95ec26);box-shadow:0 10px 26px -14px rgba(166,255,43,.7);transition:transform .15s}
+  .anun-tg:hover,.anun-tg:focus-visible{transform:translateY(-2px);outline:none}
+  .anun .anun-firma{margin-top:12px;font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-size:20px;letter-spacing:.06em;text-align:center;color:var(--text)}
+  .anun .anun-nota{margin-top:10px;text-align:center;font-size:12px;font-weight:400;color:var(--muted)}
+  @media (min-width:640px){.anun ul{grid-template-columns:1fr 1fr}.anun{padding:28px 28px 22px}}
+  @media (min-width:1024px){
+    .wide{grid-template-rows:auto auto auto auto 1fr auto}
+    .s-anun{grid-column:2/12;grid-row:3}
+    .s-res{grid-row:4/6}.s-pasos{grid-row:4}.s-trust{grid-row:5}
+  }
 </style>
 </head>
 <body>
@@ -434,6 +458,38 @@
       <p class="promo-end">⏳ Válido hasta el <b>7 de diciembre de 2026</b></p>
       <p class="promo-how">Escríbelo en la casilla <b>“Código promocional”</b> al hacer tu primera recarga. El bono está sujeto a las condiciones de la plataforma: revísalas antes de usarlo.</p>
     </div></div>
+  </section>
+
+  <section class="sec s-anun" id="novedades" aria-labelledby="anun-t">
+    <div class="anun">
+      <span class="anun-tag">📢 Jueves 12 de noviembre · noche</span>
+      <h2 id="anun-t">🔥 6-0 <span class="g">esta noche</span> 🔥</h2>
+      <p class="anun-lead">Hoy cerramos la sesión con <b>6 operativas positivas y 0 pérdidas</b>.</p>
+      <div class="anun-body">
+        <p>Pero les cuento lo que no vieron aquí: esta noche hicimos una <b>clase privada en vivo por Google Meet</b> con la comunidad VIP, y presentamos una herramienta nueva que marca en el gráfico las zonas donde el mercado reacciona con fuerza.</p>
+        <p>Y no fue una clase donde uno solo mira 👀. En el Meet todos tuvieron micrófono y chat abiertos:</p>
+        <ul>
+          <li>🎙 Conversamos en directo</li>
+          <li>❓ Cada quien preguntó lo que quiso y aclaró sus dudas al momento</li>
+          <li>📊 Vimos la herramienta funcionando en vivo, operativa por operativa</li>
+          <li>🤝 Nadie se quedó con dudas, porque explicamos cada entrada en el momento</li>
+        </ul>
+        <p>Mientras muchos siguen operando solos y adivinando dónde entrar, en el VIP ya estamos trabajando con:</p>
+        <ul class="vip-list">
+          <li>📍 Zonas marcadas en el gráfico</li>
+          <li>📍 Clases en vivo por Google Meet, cara a cara y sin delay</li>
+          <li>📍 Espacio para preguntar y resolver tus dudas directamente conmigo</li>
+          <li>📍 Explicación de cada operativa: por qué entro y por qué no entro</li>
+          <li>📍 Acompañamiento directo</li>
+        </ul>
+      </div>
+      <div class="anun-cta">
+        <p>👉 Si quieres dejar de aprender solo y estar en la próxima clase en vivo con nosotros, escríbeme ahora y te explico cómo entrar a la comunidad VIP.</p>
+        <a class="anun-tg" href="https://t.me/Limonchitrader" target="_blank" rel="noopener">📩 Telegram @Limonchitrader</a>
+        <p class="anun-firma">Limonchi Trader 👑</p>
+        <p class="anun-nota">Resultado de una sola sesión. No garantiza resultados futuros.</p>
+      </div>
+    </div>
   </section>
 
   <section class="sec res s-res" id="resultados">
