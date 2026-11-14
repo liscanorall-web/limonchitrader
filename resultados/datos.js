@@ -37,5 +37,11 @@ window.RESULTADOS = [
     sesiones: [
       { nombre: 'Sesión 1 · mañana', img: 'resultados/2026-11-10-sesion-1.png', w: 421, h: 624, g: 6, p: 1 }
     ]
+  },
+  {
+    fecha: '2026-11-14',
+    sesiones: [
+      { nombre: 'Sesión 1 · mañana', img: 'resultados/2026-11-14-sesion-1.png', w: 421, h: 674, g: 7, p: 1 }
+    ]
   }
 ];
