@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Menú Limonchi Trader</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700&display=swap">
+<style>
+/* Menú del bot @LimonchiAsistente_bot dentro de Telegram (mini app). Botones con borde de luz que gira. */
+:root{
+  --bg:#05080a; --fg:#eef6f1; --muted:#93a89c;
+  --green:#22e07a; --gold:#ffcf4a; --blue:#3aa0ff;
+  --display:"Archivo Black","Arial Black",Impact,sans-serif;
+  --body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(120% 60% at 50% 0%,#0d2a1b 0%,var(--bg) 62%) var(--bg);color:var(--fg);font-family:var(--body);
+  padding:max(20px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  -webkit-tap-highlight-color:transparent}
+main{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.cab{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.cab img{width:96px;height:96px;border-radius:50%;border:2px solid var(--green);box-shadow:0 0 24px #22e07a66}
+.cab h1{font-family:var(--display);font-size:24px;letter-spacing:.5px;margin:0}
+.cab p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.lista{display:flex;flex-direction:column;gap:14px;margin-top:4px}
+.btn{--c1:var(--green);position:relative;display:block;width:100%;border:0;border-radius:16px;padding:2px;cursor:pointer;
+  background:conic-gradient(from var(--a),transparent 0deg,var(--c1) 60deg,#fff 90deg,var(--c1) 120deg,transparent 180deg,transparent 360deg);
+  animation:gira 3s linear infinite;font:inherit;color:inherit;transition:transform .12s}
+.btn::before{content:"";position:absolute;inset:-4px;border-radius:20px;z-index:0;filter:blur(12px);opacity:.75;background:inherit;animation:inherit}
+.btn .in{position:relative;z-index:1;display:flex;align-items:center;gap:12px;border-radius:14px;padding:15px 16px;
+  background:linear-gradient(180deg,#13221b,#0b1511);font-weight:700;font-size:16px;text-align:left}
+.btn .in i{font-style:normal;font-size:20px;width:26px;text-align:center}
+.btn .in small{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px}
+.btn .in em{margin-left:auto;font-style:normal;color:var(--c1);font-size:18px}
+.btn.oro{--c1:var(--gold)}
+.btn.azul{--c1:var(--blue)}
+.btn:nth-child(2){animation-delay:-.6s}.btn:nth-child(3){animation-delay:-1.2s}.btn:nth-child(4){animation-delay:-1.8s}.btn:nth-child(5){animation-delay:-2.4s}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.btn:active{transform:scale(.98)}
+.btn[aria-busy="true"] .in em{animation:pulso .8s ease-in-out infinite}
+@keyframes gira{to{--a:360deg}}
+@keyframes pulso{50%{opacity:.2}}
+.aviso{min-height:20px;text-align:center;color:var(--green);font-size:13px;font-weight:600}
+.pie{text-align:center;color:var(--muted);font-size:11.5px;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.btn,.btn::before{animation-duration:12s}}
+</style>
+</head>
+<body>
+<main>
+  <div class="cab">
+    <img src="logo.jpg" alt="Limonchi Trader" width="96" height="96">
+    <h1>LIMONCHI TRADER</h1>
+    <p>Aprende a analizar el mercado conmigo.<br>Elige una opción 👇</p>
+  </div>
+  <div class="lista">
+    <button class="btn oro" data-accion="vip"><span class="in"><i>💎</i><span>¿Qué es el VIP?<small>Gratis, solo con registro</small></span><em>›</em></span></button>
+    <button class="btn" data-accion="pasos"><span class="in"><i>🚀</i><span>Cómo entrar al VIP<small>3 pasos sencillos</small></span><em>›</em></span></button>
+    <button class="btn azul" data-accion="registrado"><span class="in"><i>✅</i><span>Ya me registré<small>Envía tu captura con el ID</small></span><em>›</em></span></button>
+    <button class="btn" data-accion="publica"><span class="in"><i>🌐</i><span>Comunidad pública<small>Abierta para todos</small></span><em>›</em></span></button>
+    <button class="btn azul" data-accion="faq"><span class="in"><i>❓</i><span>Preguntas frecuentes<small>Dudas sobre el VIP</small></span><em>›</em></span></button>
+  </div>
+  <div class="aviso" id="aviso" aria-live="polite"></div>
+  <div class="pie">Nadie puede garantizar ganancias en trading.<br>Practica primero en la cuenta demo.</div>
+</main>
+<script>
+(function(){
+  var BOT = "https://yoooduojznohxldhtqzz.supabase.co/functions/v1/telegram-bot?app=1";
+  var tg = window.Telegram && window.Telegram.WebApp;
+  var aviso = document.getElementById("aviso");
+  if (tg) { tg.ready(); tg.expand(); try { tg.setHeaderColor("#05080a"); tg.setBackgroundColor("#05080a"); } catch (e) {} }
+  var ocupado = false;
+  document.querySelectorAll(".btn").forEach(function(b){
+    b.addEventListener("click", function(){
+      var accion = b.dataset.accion;
+      if (!tg || !tg.initData) { location.href = "https://t.me/LimonchiAsistente_bot?start=menu"; return; }
+      if (ocupado) return;
+      ocupado = true; b.setAttribute("aria-busy","true");
+      try { tg.HapticFeedback.impactOccurred("light"); } catch (e) {}
+      fetch(BOT, { method:"POST", headers:{ "content-type":"text/plain" }, body: JSON.stringify({ initData: tg.initData, accion: accion }) })
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          if (j.alerta) { tg.showAlert(j.alerta); return; }
+          if (j.ok) { tg.close(); return; }
+          aviso.textContent = "No pude abrir esa opción. Escribe /start en el chat.";
+        })
+        .catch(function(){ aviso.textContent = "Sin conexión. Inténtalo de nuevo."; })
+        .finally(function(){ ocupado = false; b.removeAttribute("aria-busy"); });
+    });
+  });
+})();
+</script>
+</body>
+</html>
